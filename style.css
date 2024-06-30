@@ -1,18 +1,19 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f9fc;
-    color: #333;
+    font-family: 'Arial', sans-serif;
+    background-color: #2c3e50;
+    color: #ecf0f1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
     margin: 0;
+    text-align: center;
 }
 
 h1 {
-    color: #EC2A00;
-    text-align: center;
+    color: #ecf0f1;
+    margin-bottom: 20px;
 }
 
 input[type="file"] {
@@ -20,17 +21,18 @@ input[type="file"] {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    text-align: center;
 }
 
 button {
-    background-color: #EC2A00;
+    background-color: #e74c3c;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin: 20px 0 40px;
+    margin: 20px 0;
 }
 
 button:disabled {
@@ -38,76 +40,9 @@ button:disabled {
     cursor: not-allowed;
 }
 
-#letterbox-container {
-    position: relative;
-    width: 300px;
-    height: 200px;
-    margin-top: 20px;
-}
-
-#letterbox {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, #f5f5f5, #e0e0e0);
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    position: relative;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    /* z-index: -1; */
-}
-
-#letterbox:before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 20px;
-    background: #EC2A00;
-    top: -20px;
-    left: 0;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    z-index: -1;
-}
-
-#letter {
-    width: 80%;
-    height: 50%;
-    background: white;
-    position: absolute;
-    bottom: 10%; /* Start inside the letterbox */
-    left: 10%;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    display: none;
-    animation: pullOut 2s forwards;
-    text-align: center;
-    padding: 10px;
-    box-sizing: border-box;
-    z-index: -1;
-}
-
-#letter p {
-    margin: 0;
-    font-size: 18px;
-    color: #333;
-}
-
-#letter p.congrats {
+#result {
     font-size: 24px;
     font-weight: bold;
-    color: #EC2A00;
-}
-
-@keyframes pullOut {
-    0% { bottom: 0%; opacity: 0; }
-    100% { bottom: 75%; opacity: 1; }
-}
-
-#username, #email {
-    font-size: 24px;
-    font-weight: bold;
-    color: #EC2A00;
+    color: #e74c3c;
     margin-top: 20px;
-    text-align: center;
 }

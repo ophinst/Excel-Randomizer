@@ -1,6 +1,5 @@
 let usernames = [];
 let emails = [];
-let currentRotation = 0;
 
 window.onload = function() {
     document.querySelector('input').addEventListener('change', function() {
@@ -28,47 +27,40 @@ window.onload = function() {
             emails = data.map(row => row.email || "No email").filter(email => email !== undefined);
 
             /* Enable button if usernames are found */
-            if (usernames.length > 0) {
-                document.getElementById('pickOneBtn').disabled = false;
+            if (usernames.length > 0 && emails.length > 0) {
+                document.getElementById('spinBtn').disabled = false;
             } else {
-                alert('No usernames found in the file.');
+                alert('No usernames or emails found in the file.');
             }
         }
         reader.readAsArrayBuffer(this.files[0]);
     });
 
+    document.getElementById('spinBtn').addEventListener('click', function() {
+        var resultDiv = document.getElementById('result');
+        var resultEmailDiv = document.getElementById('result-email');
+        var spinBtn = document.getElementById('spinBtn');
 
-    document.getElementById('pickOneBtn').addEventListener('click', function() {
-        var letter = document.getElementById('letter');
-        var usernameDiv = document.getElementById('username');
-        var emailDiv = document.getElementById('email');
+        // Disable the button during the spin
+        spinBtn.disabled = true;
 
-        // Clear previous content
-        usernameDiv.innerHTML = '';
-        emailDiv.innerHTML = '';
-        letter.style.display = 'none';
+        // Start the rapid text change animation
+        var index = 0;
+        var interval = setInterval(function() {
+            resultDiv.textContent = usernames[index];
+            resultEmailDiv.textContent = emails[index];
+            index = (index + 1) % usernames.length;
+        }, 100); // Change text every 100ms
 
-        // Pick a random username and email
-        var randomNum = Math.floor(Math.random() * usernames.length);
-        var randomUsername = usernames[randomNum];
-        var randomEmail = emails[randomNum];
-
-        // Show the letter animation
-        letter.style.display = 'block';
-        letter.style.animation = 'none'; // Reset animation
-        letter.offsetHeight; // Trigger reflow
-        letter.style.animation = ''; // Restart animation
-
-        // Show result after animation
+        // Stop the animation after 3 seconds
         setTimeout(function() {
-            var usernameDisp = document.createElement('p');
-            usernameDisp.textContent = "Username: " + randomUsername;
-            var emailDisp = document.createElement('p');
-            emailDisp.textContent = "Email: " + randomEmail;
+            clearInterval(interval);
+            var randomIndex = Math.floor(Math.random() * usernames.length);
+            resultDiv.textContent = "Winner username: " + usernames[randomIndex];
+            resultEmailDiv.textContent = "Winner e-mail: " + emails[randomIndex];
 
-            // Append to page
-            usernameDiv.appendChild(usernameDisp);
-            emailDiv.appendChild(emailDisp);
-        }, 2000); // Match the delay to the animation duration
+            // Re-enable the button after stopping
+            spinBtn.disabled = false;
+        }, 3000); // Run animation for 3 seconds
     });
 }
