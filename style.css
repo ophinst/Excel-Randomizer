@@ -11,9 +11,19 @@ body {
     text-align: center;
 }
 
+.container {
+    background-color: #34495e;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 600px;
+}
+
 h1 {
     color: #ecf0f1;
     margin-bottom: 20px;
+    font-size: 2rem;
 }
 
 input[type="file"] {
@@ -22,6 +32,25 @@ input[type="file"] {
     border: 1px solid #ccc;
     border-radius: 4px;
     text-align: center;
+    background-color: #34495e;
+    color: #ecf0f1;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 button {
@@ -32,7 +61,7 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin: 20px 0;
+    transition: background-color 0.3s;
 }
 
 button:disabled {
@@ -40,9 +69,51 @@ button:disabled {
     cursor: not-allowed;
 }
 
-#result {
-    font-size: 24px;
+button:not(:disabled):hover {
+    background-color: #c0392b;
+}
+
+#result-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#result, #result-email {
+    font-size: 1.5rem;
     font-weight: bold;
-    color: #e74c3c;
+    color: white;
     margin-top: 20px;
+    padding: 10px;
+    background: #34495e;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+#results100 {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 300px;
+    overflow-y: auto;
+    text-align: left;
+    background: #2c3e50;
+    padding: 15px;
+    border-radius: 4px;
+    display: none; /* Hide by default */
+}
+
+#results100 p {
+    background: #34495e;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 5px 0;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+.hidden {
+    display: none;
 }

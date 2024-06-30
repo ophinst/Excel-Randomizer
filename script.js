@@ -26,9 +26,10 @@ window.onload = function() {
             usernames = data.map(row => row.username).filter(username => username !== undefined);
             emails = data.map(row => row.email || "No email").filter(email => email !== undefined);
 
-            /* Enable button if usernames are found */
+            /* Enable buttons if usernames are found */
             if (usernames.length > 0 && emails.length > 0) {
                 document.getElementById('spinBtn').disabled = false;
+                document.getElementById('generate100Btn').disabled = false;
             } else {
                 alert('No usernames or emails found in the file.');
             }
@@ -47,8 +48,8 @@ window.onload = function() {
         // Start the rapid text change animation
         var index = 0;
         var interval = setInterval(function() {
-            resultDiv.textContent = usernames[index];
-            resultEmailDiv.textContent = emails[index];
+            resultDiv.textContent = "Winner username: " + usernames[index];
+            resultEmailDiv.textContent = "Winner e-mail: " + emails[index];
             index = (index + 1) % usernames.length;
         }, 100); // Change text every 100ms
 
@@ -61,6 +62,49 @@ window.onload = function() {
 
             // Re-enable the button after stopping
             spinBtn.disabled = false;
+        }, 3000); // Run animation for 3 seconds
+    });
+    
+    document.getElementById('generate100Btn').addEventListener('click', function() {
+        // Show the results container
+        var resultsDiv = document.getElementById('results100');
+        resultsDiv.classList.remove('hidden');
+        resultsDiv.style.display = 'block';
+        resultsDiv.innerHTML = ''; // Clear previous results
+        let winners = new Set();
+        let interval;
+        let animationIndex = 0;
+
+        // Animation function
+        function animateGeneration() {
+            if (animationIndex >= usernames.length) {
+                animationIndex = 0;
+            }
+            resultsDiv.innerHTML = `${usernames[animationIndex]} - ${emails[animationIndex]}`;
+            animationIndex++;
+        }
+
+        // Start the animation
+        interval = setInterval(animateGeneration, 100);
+
+        // Stop the animation and generate 100 winners
+        setTimeout(function() {
+            clearInterval(interval);
+
+            while (winners.size < 100 && winners.size < usernames.length) {
+                let randomIndex = Math.floor(Math.random() * usernames.length);
+                let winner = `${usernames[randomIndex]} - ${emails[randomIndex]}`;
+                winners.add(winner);
+            }
+
+            resultsDiv.innerHTML = ''; // Clear the animation text
+
+            winners.forEach(winner => {
+                let p = document.createElement('p');
+                p.textContent = winner;
+                resultsDiv.appendChild(p);
+            });
+
         }, 3000); // Run animation for 3 seconds
     });
 }
