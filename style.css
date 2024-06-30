@@ -12,6 +12,7 @@ body {
 
 h1 {
     color: #EC2A00;
+    text-align: center;
 }
 
 input[type="file"] {
@@ -100,7 +101,7 @@ button:disabled {
 
 @keyframes pullOut {
     0% { bottom: 0%; opacity: 0; }
-    100% { bottom: 70%; opacity: 1; }
+    100% { bottom: 75%; opacity: 1; }
 }
 
 #username, #email {
@@ -108,4 +109,5 @@ button:disabled {
     font-weight: bold;
     color: #EC2A00;
     margin-top: 20px;
+    text-align: center;
 }
