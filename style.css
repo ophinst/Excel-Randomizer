@@ -11,7 +11,7 @@ body {
 }
 
 h1 {
-    color: #4CAF50;
+    color: #EC2A00;
 }
 
 input[type="file"] {
@@ -22,14 +22,14 @@ input[type="file"] {
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #EC2A00;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin: 20px 0;
+    margin: 20px 0 40px;
 }
 
 button:disabled {
@@ -37,16 +37,75 @@ button:disabled {
     cursor: not-allowed;
 }
 
-#username {
-    font-size: 24px;
-    font-weight: bold;
-    color: #4CAF50;
+#letterbox-container {
+    position: relative;
+    width: 300px;
+    height: 200px;
     margin-top: 20px;
 }
 
-#email {
+#letterbox {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #f5f5f5, #e0e0e0);
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    /* z-index: -1; */
+}
+
+#letterbox:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    background: #EC2A00;
+    top: -20px;
+    left: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: -1;
+}
+
+#letter {
+    width: 80%;
+    height: 50%;
+    background: white;
+    position: absolute;
+    bottom: 10%; /* Start inside the letterbox */
+    left: 10%;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    display: none;
+    animation: pullOut 2s forwards;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: -1;
+}
+
+#letter p {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+#letter p.congrats {
     font-size: 24px;
     font-weight: bold;
-    color: #4CAF50;
+    color: #EC2A00;
+}
+
+@keyframes pullOut {
+    0% { bottom: 0%; opacity: 0; }
+    100% { bottom: 70%; opacity: 1; }
+}
+
+#username, #email {
+    font-size: 24px;
+    font-weight: bold;
+    color: #EC2A00;
     margin-top: 20px;
 }

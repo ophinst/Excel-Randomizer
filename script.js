@@ -1,5 +1,6 @@
 let usernames = [];
 let emails = [];
+let currentRotation = 0;
 
 window.onload = function() {
     document.querySelector('input').addEventListener('change', function() {
@@ -12,20 +13,20 @@ window.onload = function() {
             var workbook = XLSX.read(binaryString, {
                 type: "binary"
             });
-    
+
             /* Get first sheet */
             var first_sheet_name = workbook.SheetNames[0];
             var worksheet = workbook.Sheets[first_sheet_name];
-    
+
             /* Convert to JSON */
             var data = XLSX.utils.sheet_to_json(worksheet, {
                 raw: true
             });
-    
-            /* Extract usernames adn email */
-            usernames = data.map(row => row.username).filter(username => username);
+
+            /* Extract usernames and emails */
+            usernames = data.map(row => row.username).filter(username => username !== undefined);
             emails = data.map(row => row.email || "No email").filter(email => email !== undefined);
-    
+
             /* Enable button if usernames are found */
             if (usernames.length > 0) {
                 document.getElementById('pickOneBtn').disabled = false;
@@ -35,29 +36,39 @@ window.onload = function() {
         }
         reader.readAsArrayBuffer(this.files[0]);
     });
-    
+
+
     document.getElementById('pickOneBtn').addEventListener('click', function() {
-        // Pick random number
-        var randomNum = Math.floor(Math.random() * usernames.length);
-        var randomUsername = usernames[randomNum];
-        var randomEmail = emails[randomNum];
-        
-        // Get div of username and email
+        var letter = document.getElementById('letter');
         var usernameDiv = document.getElementById('username');
         var emailDiv = document.getElementById('email');
 
         // Clear previous content
         usernameDiv.innerHTML = '';
         emailDiv.innerHTML = '';
+        letter.style.display = 'none';
 
-        // Add new element to display data
-        var usernameDisp = document.createElement('p');
-        usernameDisp.textContent = "Username: " + randomUsername;
-        var emailDisp = document.createElement('p');
-        emailDisp.textContent = "Email: " + randomEmail;
+        // Pick a random username and email
+        var randomNum = Math.floor(Math.random() * usernames.length);
+        var randomUsername = usernames[randomNum];
+        var randomEmail = emails[randomNum];
 
-        // Append to page
-        usernameDiv.appendChild(usernameDisp);
-        emailDiv.appendChild(emailDisp);
+        // Show the letter animation
+        letter.style.display = 'block';
+        letter.style.animation = 'none'; // Reset animation
+        letter.offsetHeight; // Trigger reflow
+        letter.style.animation = ''; // Restart animation
+
+        // Show result after animation
+        setTimeout(function() {
+            var usernameDisp = document.createElement('p');
+            usernameDisp.textContent = "Username: " + randomUsername;
+            var emailDisp = document.createElement('p');
+            emailDisp.textContent = "Email: " + randomEmail;
+
+            // Append to page
+            usernameDiv.appendChild(usernameDisp);
+            emailDiv.appendChild(emailDisp);
+        }, 2000); // Match the delay to the animation duration
     });
 }

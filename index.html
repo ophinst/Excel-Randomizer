@@ -9,11 +9,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Random Username Picker</h1>
+    <h1>Random Username and Email Picker</h1>
     <input type="file" id="data" accept=".xlsx" />
     <button id="pickOneBtn" disabled>Pick One!</button>
+    <div id="letterbox-container">
+        <div id="letterbox">
+            <div id="letter">
+                <p class="congrats">Congratz!</p>
+                <p id="letterUsername"></p>
+                <p id="letterEmail"></p>
+            </div>
+        </div>
+    </div>
     <div id="username"></div>
     <div id="email"></div>
-    </script>
 </body>
 </html>
